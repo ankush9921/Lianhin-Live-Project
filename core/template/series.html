@@ -5,7 +5,7 @@
       <div class="page-title">
         <div class="row">
           <div class="col-sm-6 ps-0">
-            <h3>Brands Table</h3>
+            <h3>Collection Table</h3>
           </div>
           <div class="col-sm-6 pe-0">
             <a href="#"> 
@@ -16,24 +16,29 @@
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-toggle-wrapper social-profile text-start dark-sign-up">
-                            <h3 class="modal-header justify-content-center border-0">Brand Form</h3>
+                            <h3 class="modal-header justify-content-center border-0">Series Form</h3>
                             <div class="modal-body">
                               
-                              <form class="row g-3" action="{% url 'brandform' %}" method="POST" enctype="multipart/form-data">
+                              <form class="row g-3" action="{% url 'seriesform' %}" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="col-md-12">
                                   <div class="col-12"> 
-                                    <label class="form-label" for="brand_name">Brand Name</label>
-                                    <input class="form-control" id="brand_name" name="brand_name" type="text" placeholder="Brand Name" aria-label="Name" required>
+                                    
+                                        <label for="collection_name">Collection Name</label>
+                                        <select name="collection_name" id="collection_name" class="form-select">
+                                            <option value="" selected>Select a Collection</option>
+                                            {% for i in collections %}
+                                            <option value="{{ i.id }}">{{ i.collection_name }}</option>
+                                            {% endfor %}
+                                        </select>
                                   </div>
                                 </div>
                                 <div class="col-md-12">
-                                  <div class="col-12">
-                                    <label class="form-label" for="brand_image">Choose file</label>
-                                    <input class="form-control" name="brand_image" id="brand_image" type="file" required>
+                                  <div class="col-12" style="margin-top: 5px;"> 
+                                      <label class="form-label" for="series_name">Series Name</label>
+                                      <input class="form-control" id="series_name" name="series_name" type="text" placeholder="Name" aria-label="Name" required>
                                   </div>
                                 </div>
-
                                 <div class="col-6">
                                     <button class="btn btn-primary" style="margin-top: 10px; margin-left: 10px;" type="submit">Submit</button>
                                 </div>
@@ -51,7 +56,7 @@
     <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
-            <h3>Brands</h3>
+            <h3>Series</h3>
           </div>
           <div class="card-block row">
             <div class="col-sm-12 col-lg-12 col-xl-12">
@@ -60,37 +65,32 @@
                   <thead>
                     <tr>
                       <th scope="col">Sr.No</th>
-                      <th scope="col">Brand Name</th>
-                      <th scope="col">Image</th>
+                      <th scope="col">Collection Name</th>
+                      <th scope="col">Series Name</th>
                       <th scope="col">Is Active</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {% for i in data %}
+                    {% for i in series %}
                         <tr>
                         <th scope="row">{{forloop.counter}}</th>
 
-                        <td>{{i.brand_name}}</td>
-                        <td>
-                          {% if i.brand_image %}
-                          <img src="{{i.brand_image.url}}" height="50px">
-                          {% endif %}
-                        </td>
+                        <td>{{i.collection.collection_name}}</td>
+                        <td>{{i.series_name}}</td>
                         
                         <td>
                           {% if i.is_active %}
-                            <a href="{% url 'Active_brand' i.id %}" class="badge rounded-pill badge-danger">Deactive</a>
+                            <a href="{% url 'Active_series' i.id %}" class="badge rounded-pill badge-danger">Deactive</a>
                           {% else %}
-                              <a href="{% url 'Deactive_brand' i.id %}" class="badge rounded-pill badge-success">Active</a>
+                              <a href="{% url 'Deactive_series' i.id %}" class="badge rounded-pill badge-success">Active</a>
                           {% endif %}
                         </td>
 
-          
-
+      
                         <td>
-                            <button class="btn btn-outline-light btn-xs txt-dark" type="button" data-bs-original-title="btn btn-outline-primary btn-xs"><a href="{% url 'updatebrand' i.id %}"><i class="icofont icofont-edit"></i></a></button>
-                            <button class="btn btn-outline-light btn-xs txt-dark" type="button" data-bs-original-title="btn btn-outline-primary btn-xs"><a href="{% url 'deletebrand' i.id %}"><i class="icofont icofont-trash"></i></a></button>
+                            <button class="btn btn-outline-light btn-xs txt-dark" type="button" data-bs-original-title="btn btn-outline-primary btn-xs"><a href="{% url 'updateseries' i.id %}"><i class="icofont icofont-edit"></i></a></button>
+                            <button class="btn btn-outline-light btn-xs txt-dark" type="button" data-bs-original-title="btn btn-outline-primary btn-xs"><a href="{% url 'deleteseries' i.id %}"><i class="icofont icofont-trash"></i></a></button>
                         </td>
                         </tr>
                         {% endfor %}

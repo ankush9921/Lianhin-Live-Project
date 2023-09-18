@@ -27,4 +27,11 @@ urlpatterns = [
     path('Deactive_collection/<int:id>',views.Deactive_collection,name='Deactive_collection'),
     path('updatecollection/<int:id>',views.updatecollection,name='updatecollection'),
     path('deletecollection/<int:id>',views.deletecollection,name='deletecollection'),
+
+    path('series',views.series,name='series'),
+    path('seriesform',views.seriesform,name='seriesform'),
+    path('Active_series/<int:id>',views.Active_series,name='Active_series'),
+    path('Deactive_series/<int:id>',views.Deactive_series,name='Deactive_series'),
+    path('updateseries/<int:id>',views.updateseries,name='updateseries'),
+    path('deleteseries/<int:id>',views.deleteseries,name='deleteseries'),
 ]

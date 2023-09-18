@@ -82,7 +82,8 @@ def brand(request):
 def brandform(request):
     if request.method == 'POST':
         name_f = request.POST['brand_name']
-        Brand.objects.create(brand_name=name_f)
+        brand_image_f = request.FILES['brand_image']
+        Brand.objects.create(brand_name=name_f, brand_image=brand_image_f)
         return redirect('/brand')
     else:
         return render(request, 'brandform.html')
@@ -108,6 +109,12 @@ def updatebrand(request,id):
     data=Brand.objects.get(id=id)
     if request.method=='POST':
         name_f=request.POST['brand_name']
+        brand_image_f=request.FILES.get('brand_image')
+
+        if brand_image_f:
+            data.brand_image=brand_image_f
+        else:
+            pass
 
         data.brand_name=name_f
 
@@ -119,7 +126,6 @@ def updatebrand(request,id):
 def collection(request):
     collections = Collection.objects.filter(is_active=True)
     brands = Brand.objects.all()
-    print(brands)
     context = {'collections': collections, 'brands': brands}
     return render(request, 'collection.html', context)
 
@@ -168,3 +174,56 @@ def updatecollection(request,id):
         return redirect('/collection')
     context={'data':data,'brand':brand}
     return render(request,'updatecollection.html',context)
+
+def series(request):
+    series = Series.objects.filter(is_active=True)
+    collection = Collection.objects.all()
+    context = {'series': series, 'collection': collection}
+    return render(request, 'series.html', context)
+
+def seriesform(request):
+    collections = Collection.objects.all()
+
+    if request.method == 'POST':
+        series_name_f = request.POST['series_name']
+        collection_id = request.POST['collection_name']
+
+        try:
+            collection_obj = Collection.objects.get(id=collection_id)
+            Series.objects.create(series_name=series_name_f, collection=collection_obj)
+            return redirect('/series')
+        except Collection.DoesNotExist:
+            return render(request, 'seriesform.html', {'collections': collections})
+
+    return render(request, 'seriesform.html', {'collections': collections})
+
+
+def Active_series(request,id):
+    data=Series.objects.get(id=id)
+    data.is_active=False
+    data.save()
+    return redirect("/series")
+
+def Deactive_series(request,id):
+    data=Series.objects.get(id=id)
+    data.is_active=True
+    data.save()
+    return redirect("/series")
+
+def deleteseries(request,id):
+    data=Series.objects.get(id=id)
+    data.delete()
+    return redirect('/series')
+
+def updateseries(request,id):
+    data=Series.objects.get(id=id)
+    collection=Collection.objects.all()
+    if request.method=='POST':
+        series_name_f = request.POST['series_name']
+
+
+        data.series_name=series_name_f
+        data.save()
+        return redirect('/series')
+    context={'data':data,'collection':collection}
+    return render(request,'updateseries.html',context)

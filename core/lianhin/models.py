@@ -9,13 +9,15 @@ class Surfacefinish(BaseContent):
 
 class Brand(BaseContent):
     brand_name = models.CharField(max_length=255, unique=True)
+    brand_image = models.FileField(upload_to='brand',blank=True,null=True)
+
 
 class Collection(BaseContent):
     brand = models.ForeignKey(to=Brand, on_delete=models.CASCADE)
     collection_name = models.CharField(max_length=255, unique=True)
 
 class Series(BaseContent):
-    collection_id = models.ForeignKey(to=Collection, on_delete=models.CASCADE)
+    collection = models.ForeignKey(to=Collection, on_delete=models.CASCADE)
     series_name = models.CharField(max_length=255, unique=True)
 
 class Models(BaseContent):
