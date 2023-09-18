@@ -1,0 +1,123 @@
+{% extends "base.html" %}{% load static %}{% block content %}
+
+<div class="page-body">
+    <div class="container-fluid">
+      <div class="page-title">
+        <div class="row">
+          <div class="col-sm-6 ps-0">
+            <h3>Surface finish Table</h3>
+          </div>
+
+          <div class="col-sm-6 pe-0">
+            <a href="#"> 
+              <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalgetbootstrap" data-whatever="@getbootstrap" style="margin-left: 450px;"> ADD DATA</button>
+            </button>
+            </a>
+                    <div class="modal fade" id="exampleModalgetbootstrap" tabindex="-1" aria-labelledby="exampleModalgetbootstrap" style="display: none;" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-toggle-wrapper social-profile text-start dark-sign-up">
+                            <h3 class="modal-header justify-content-center border-0">Surface Finish Form</h3>
+                            <div class="modal-body">
+                              
+                              <form class="row g-3" action="{% url 'surfacefinishform' %}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <div class="col-md-12">
+                                  <div class="col-12"> 
+                                    <label class="form-label" for="surface_name">Name</label>
+                                    <input class="form-control" id="surface_name" name="surface_name" type="text" placeholder="Name" aria-label="Name" required>
+                                  </div>
+                                </div>
+          
+                                <div class="col-md-12">
+                                  <div class="col-12">
+                                    <label class="form-label" for="icon">Choose file</label>
+                                    <input class="form-control" name="icon" id="icon" type="file" required>
+                                  </div>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-primary" style="margin-top: 10px; margin-left: 10px;" type="submit">Submit</button>
+                                </div>
+                            </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Container-fluid starts-->
+    <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <h3>Surface finish</h3>
+          </div>
+          <div class="card-block row">
+            <div class="col-sm-12 col-lg-12 col-xl-12">
+              <div class="table-responsive theme-scrollbar">
+                <table class="table table-responsive theme-scrollbar-sm">
+                  <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Icon</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Is Active</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                
+                  <tbody>
+                    {% for i in data %}
+                        <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>
+                            {% if i.icon %}
+                            <img src="{{i.icon.url}}" height="50px">
+                            {% endif %}
+                        </td>
+                        <td>{{i.surface_name}}</td>
+                        
+                        <td>
+                          {% if i.is_active %}
+                            <a href="{% url 'Active_surfacefinish' i.id %}" class="badge rounded-pill badge-danger">Deactive</a>
+                          {% else %}
+                              <a href="{% url 'Deactive_surfacefinish' i.id %}" class="badge rounded-pill badge-success">Active</a>
+                          {% endif %}
+                        </td>
+
+          
+
+                        <td>
+                            <button class="btn btn-outline-light btn-xs txt-dark" type="button" data-bs-original-title="btn btn-outline-primary btn-xs"><a href="{% url 'updatesurfacefinish' i.id %}"><i class="icofont icofont-edit"></i></a></button>
+                            <button class="btn btn-outline-light btn-xs txt-dark" type="button" data-bs-original-title="btn btn-outline-primary btn-xs"><a href="{% url 'deletesurfacefinish' i.id %}"><i class="icofont icofont-trash"></i></a></button>
+                        </td>
+                        </tr>
+                        {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Container-fluid Ends-->
+  </div>
+
+
+{% endblock %}
+
+<!-- <div class="btn-showcase">
+    <button class="btn btn-primary" type="button" data-bs-toggle="tooltip" data-bs-original-title="btn btn-primary">Primary Button</button>
+    <button class="btn btn-secondary" type="button" data-bs-toggle="tooltip" data-bs-original-title="btn btn-secondary">Secondary Button</button>
+    <button class="btn btn-success" type="button" data-bs-toggle="tooltip" data-bs-original-title="btn btn-success">Success Button</button>
+    <button class="btn btn-info" type="button" data-bs-toggle="tooltip" data-bs-original-title="btn btn-info">Info Button</button>
+    <button class="btn btn-warning" type="button" data-bs-toggle="tooltip" data-bs-original-title="btn btn-warning">Warning Button</button>
+    <button class="btn btn-danger" type="button" data-bs-toggle="tooltip" data-bs-original-title="btn btn-danger">Danger Button</button>
+    <button class="btn btn-light" type="button" data-bs-toggle="tooltip" data-bs-original-title="btn btn-light">Light Button</button>
+  </div> -->
+
+  

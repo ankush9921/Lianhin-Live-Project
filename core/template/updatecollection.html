@@ -1,0 +1,46 @@
+{% extends "base.html" %}{% load static %}{% block content %}
+
+              <div class="container-fluid" style="padding-left: 120px; padding-top:20px">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="card">
+                      <div class="card-header pb-0">
+                        <h3>Update form</h3>
+                        <a href="{% url 'collection' %}"><i class="icofont icofont-undo" style="padding-left: 500px;"></i></a>
+
+                      </div>
+                      <div class="card-body">
+                        <div class="card-wrapper border rounded-3">
+                          
+                          <form class="row g-8" action="{% url 'updatecollection' data.id %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <div class="col-6"> 
+                              <label for="brand_name">Brand Name</label>
+                              <select name="brand_name" id="brand_name" class="form-select">
+                                  <option value="" >{{ data.brand.brand_name }}</option>
+                                  <!-- {% for i in collections %}
+                                  <option value="{{ i.id }}"></option>
+                                  {% endfor %} -->
+                              </select>
+                            </div>
+                            <div class="col-6" style="margin-top: 5px;">
+                              <label class="form-label" for="collection_name">Name</label>
+                              <input class="form-control" id="collection_name" value="{{data.collection_name}}" name="collection_name" type="text" placeholder="Name" aria-label="Name" >
+                            </div>
+                          
+
+
+                          <div class="col-6">
+                            <button class="btn btn-primary" style="margin-top: 20px;" type="submit">Submit</button>
+                          </div>
+
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+              {% endblock %}

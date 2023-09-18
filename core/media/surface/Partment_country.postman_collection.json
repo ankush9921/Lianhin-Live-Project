@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "5f6cdda4-b1e8-4ee5-82ea-512a71cdc50e",
+		"name": "Partment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27508567"
+	},
+	"item": [
+		{
+			"name": "Create Country",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk0MjQxMzEzLCJpYXQiOjE2OTQxNTQ5MTMsImp0aSI6IjVkMzljMWE1NmM1ZjQ1ZWQ5ZTAzZjdjMmVkMTdlYzc0IiwidXNlcl9pZCI6MX0.BeghrDNvWoEmrdpfIxq2C_BLD_4Y4gbFIovsgfe4C4A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"India\",\r\n    \"code\":\"+91\",\r\n    \"currency\":\"Indian Rupee\",\r\n    \"currency_symbol\":\"₹\",\r\n    \"is_state_available\":\"True\",\r\n    \"slug\":\"IN\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v2/country/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"country",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Country",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk0MjQxMzEzLCJpYXQiOjE2OTQxNTQ5MTMsImp0aSI6IjVkMzljMWE1NmM1ZjQ1ZWQ5ZTAzZjdjMmVkMTdlYzc0IiwidXNlcl9pZCI6MX0.BeghrDNvWoEmrdpfIxq2C_BLD_4Y4gbFIovsgfe4C4A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v2/country/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"country",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update country",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk0MDY3OTE5LCJpYXQiOjE2OTM5ODE1MTksImp0aSI6IjQ5OWMzZTg2MDZmODRlYzU4NTkwMjk4M2NjM2MwZTIyIiwidXNlcl9pZCI6MX0.RXcs9VuHveYSa8IoKLCRCdnk3aJhm0zBiok56hXjapU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"is_state_available\":\"False\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v2/country/AUS/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"country",
+						"AUS",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete Country",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v2/country/WI/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"country",
+						"WI",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

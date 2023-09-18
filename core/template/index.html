@@ -1,0 +1,210 @@
+{% extends "base.html" %}{% load static %}{% block content %}
+
+
+      <!-- Page Body Start-->
+      
+        <!-- Page Sidebar Ends-->
+        <div class="page-body">
+          <div class="container-fluid"></div>
+          <!-- Container-fluid starts-->
+          <div class="container-fluid dashboard_default">
+            <div class="row widget-grid">
+              <div class="col-12"> 
+                <div class="page-title mt-2">
+                  <div class="row">
+                    <div class="col-sm-6 ps-0">
+                      <h3>Shopping place Dashboard</h3>
+                    </div>
+                    <div class="col-sm-6 pe-0">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">                                       
+                            <svg class="stroke-icon">
+                              <use href="{% static 'assets/svg/icon-sprite.svg#stroke-home' %}"></use>
+                            </svg></a></li>
+                        <li class="breadcrumb-item">Dashboard</li>
+                        <li class="breadcrumb-item active">Default</li>
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4 col-lg-6 col-sm-12 box-col-4">
+                <div class="card total-earning">
+                  <div class="card-body">
+                    <div class="row"> 
+                      <div class="col-sm-7 box-col-7">
+                        <div class="d-flex">
+                          <div class="badge bg-light-primary badge-rounded font-primary me-2">$</div>
+                          <div class="flex-grow-1"> 
+                            <h3>Total Earning</h3>
+                          </div>
+                        </div>
+                        <h5>$20.790</h5>
+                        <p class="d-flex"><span class="bg-light-secondary me-2">
+                            <svg>
+                              <use href="{% static 'assets/svg/icon-sprite.svg#arrow-down' %}"></use>
+                            </svg></span><span class="font-secondary me-2">- 36.28%</span><span>Since last month</span></p>
+                      </div>
+                      <div class="col-sm-5 box-col-5">
+                        <div id="expensesChart"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4 col-lg-6 col-sm-12 box-col-4">
+                <div class="card total-earning">
+                  <div class="card-body">
+                    <div class="row"> 
+                      <div class="col-sm-7 box-col-7">
+                        <div class="d-flex">
+                          <div class="badge bg-light-dark badge-rounded font-primary me-2">
+                            <svg>
+                              <use href="{% static 'assets/svg/icon-sprite.svg#fill-Buy' %}"></use>
+                            </svg>
+                          </div>
+                          <div class="flex-grow-1"> 
+                            <h3>Total Sales</h3>
+                          </div>
+                        </div>
+                        <h5>$65.340</h5>
+                        <p class="d-flex"><span class="bg-light-dark me-2">
+                            <svg>
+                              <use href="{% static 'assets/svg/icon-sprite.svg#arrow-up' %}"></use>
+                            </svg></span><span class="font-dark me-2">- 90.28%</span><span>Then last Week</span></p>
+                      </div>
+                      <div class="col-sm-5 box-col-5">
+                        <div id="totalLikesAreaChart"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4 col-lg-12 col-sm-12 box-col-4">
+                <div class="card total-earning">
+                  <div class="card-body">
+                    <div class="row"> 
+                      <div class="col-sm-7 box-col-7">
+                        <div class="d-flex">
+                          <div class="badge bg-light-secondary badge-rounded font-primary me-2">
+                            <svg>
+                              <use href="{% static 'assets/svg/icon-sprite.svg#user"></use>
+                            </svg>
+                          </div>
+                          <div class="flex-grow-1"> 
+                            <h3>Total Visitors</h3>
+                          </div>
+                        </div>
+                        <h5>$46.564</h5>
+                        <p class="d-flex"><span class="bg-light-secondary me-2">
+                            <svg>
+                              <use href="{% static 'assets/svg/icon-sprite.svg#arrow-down"></use>
+                            </svg></span><span class="font-secondary me-2">- 25.28%</span><span>Since last month</span></p>
+                      </div>
+                      <div class="col-sm-5 box-col-5 incom-chart">
+                        <div id="Incomechrt"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6">
+                <div class="card invoice-card">
+                  <div class="card-header pb-0">
+                    <h3>Recent Orders</h3>
+                  </div>
+                  <div class="card-body transaction-card">
+                    <div class="table-responsive theme-scrollbar">
+                      <table class="display" id="recent-order" style="width:100%">
+                        <thead>
+                          <tr>
+                            <th>Id</th>
+                            <th>Product Name</th>
+                            <th>Date</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+                            <th>Total</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>A8576
+                              <td>
+                                <div class="d-flex">
+                                  <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard/user/01.png' %}" alt=""></div>
+                                  <div class="flex-grow-1 ms-2"><a href="product-page.html">
+                                      <h4>Nike Sports</h4><span>Free delivery</span></a></div>
+                                </div>
+                              </td>
+                              <td>Aug 15,2023</td>
+                              <td> 
+                                <button class="btn">Paid</button>
+                              </td>
+                              <td class="txt-warning">Delivered</td>
+                              <td>$44.54</td>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>K6556
+                              <td>
+                                <div class="d-flex">
+                                  <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard/user/02.png' %}" alt=""></div>
+                                  <div class="flex-grow-1 ms-2"><a href="product-page.html">
+                                      <h4>Women Bag</h4><span>$83.97 delivery</span></a></div>
+                                </div>
+                              </td>
+                              <td>Aug 25,2023</td>
+                              <td> 
+                                <button class="btn">Paid</button>
+                              </td>
+                              <td class="txt-primary">Pending</td>
+                              <td>$51.50</td>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Y6485
+                              <td>
+                                <div class="d-flex">
+                                  <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard/user/03.png' %}" alt=""></div>
+                                  <div class="flex-grow-1 ms-2"><a href="product-page.html">
+                                      <h4>Sunglasses</h4><span>Free delivery</span></a></div>
+                                </div>
+                              </td>
+                              <td>May 08,2023</td>
+                              <td> 
+                                <button class="btn">Paid</button>
+                              </td>
+                              <td class="txt-danger">Cancel</td>
+                              <td>$64.16</td>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>G5653
+                              <td>
+                                <div class="d-flex">
+                                  <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard/user/04.png' %}" alt=""></div>
+                                  <div class="flex-grow-1 ms-2"><a href="product-page.html">
+                                      <h4>Men T-shirt</h4><span>$12.55 delivery</span></a></div>
+                                </div>
+                              </td>
+                              <td>Feb 14,2023</td>
+                              <td> 
+                                <button class="btn">Unpaid</button>
+                              </td>
+                              <td class="txt-warning">Delivered</td>
+                              <td>$35.95</td>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Container-fluid Ends-->
+        </div>
+
+        
+{% endblock %}
