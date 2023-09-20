@@ -233,7 +233,7 @@ def collectionform(request):
         except Brand.DoesNotExist:
             messages.error(request, 'Invalid Brand selected.')
     
-    return render(request, 'collectionform.html', {'brands': brands})
+    return render(request, 'collection.html', {'brands': brands})
 
 
 def Active_collection(request,id):
