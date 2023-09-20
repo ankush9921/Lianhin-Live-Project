@@ -88,7 +88,7 @@ def surfacefinishform(request):
         
         return redirect('/surfacefinish')
     else:
-        return render(request, 'surfacefinishform.html')
+        return render(request, 'surfacefinish.html')
     
 def Active_surfacefinish(request,id):
     data=Surfacefinish.objects.get(id=id)
@@ -152,7 +152,7 @@ def brandform(request):
 
         return redirect('/brand')
     else:
-        return render(request, 'brandform.html')
+        return render(request, 'brand.html')
     
 
     
