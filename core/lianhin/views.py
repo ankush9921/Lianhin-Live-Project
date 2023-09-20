@@ -3,6 +3,11 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import *
 from lianhin.basecontent import BaseContent
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+
+
 
 # Create your views here.
 
@@ -22,20 +27,65 @@ def sign_in(request):
     
     return render(request,'sign_in.html')
 
+def sign_out(request):
+    auth.logout(request)
+    return redirect('/')
+
+@login_required
 def index(request):
     return render(request,'index.html')
 
-
+@login_required
 def surfacefinish(request):
-    data=Surfacefinish.objects.filter(is_active=True)
+    data=Surfacefinish.objects.all()
     context={'data':data}
     return render(request,'surfacefinish.html',context)
     
+# def surfacefinishform(request):
+#     if request.method == 'POST':
+#         name_f = request.POST['surface_name']
+#         icon_f = request.FILES['icon']
+#         Surfacefinish.objects.create(surface_name=name_f, icon=icon_f)
+#         return redirect('/surfacefinish')
+#     else:
+#         return render(request, 'surfacefinishform')
+
+# def surfacefinishform(request):
+#     if request.method == 'POST':
+#         name_f = request.POST['surface_name']
+#         icon_f = request.FILES['icon']
+        
+#         # Check if a record with the same name already exists
+#         existing_record = Surfacefinish.objects.filter(surface_name=name_f).first()
+        
+#         if existing_record:
+#             # Handle the case where the name already exists
+#             # You can display an error message to the user
+#             # or update the existing record if needed
+#             # For example, you can update the icon of the existing record:
+#             existing_record.icon = icon_f
+#             existing_record.save()
+#         else:
+#             # Create a new record if the name is unique
+#             Surfacefinish.objects.create(surface_name=name_f, icon=icon_f)
+        
+#         return redirect('/surfacefinish')
+#     else:
+#         return render(request, 'surfacefinishform.html')
+
 def surfacefinishform(request):
     if request.method == 'POST':
         name_f = request.POST['surface_name']
         icon_f = request.FILES['icon']
-        Surfacefinish.objects.create(surface_name=name_f, icon=icon_f)
+        
+        existing_record = Surfacefinish.objects.filter(surface_name=name_f).first()
+        
+        if existing_record:
+            messages.error(request, f'Surfacefinish with name "{name_f}" already exists.')
+        else:
+            Surfacefinish.objects.create(surface_name=name_f, icon=icon_f)
+            messages.success(request, f'Surfacefinish "{name_f}" added successfully.')
+        
         return redirect('/surfacefinish')
     else:
         return render(request, 'surfacefinishform.html')
@@ -74,19 +124,37 @@ def updatesurfacefinish(request,id):
     context={'data':data}
     return render(request,'updatesurfacefinish.html',context)
 
+@login_required
 def brand(request):
     data=Brand.objects.filter(is_active=True)
     context={'data':data}
     return render(request,'brand.html',context)
     
+# def brandform(request):
+#     if request.method == 'POST':
+#         name_f = request.POST['brand_name']
+#         brand_image_f = request.FILES['brand_image']
+#         Brand.objects.create(brand_name=name_f, brand_image=brand_image_f)
+#         return redirect('/brand')
+#     else:
+#         return render(request, 'brandform.html')
+
 def brandform(request):
     if request.method == 'POST':
         name_f = request.POST['brand_name']
         brand_image_f = request.FILES['brand_image']
-        Brand.objects.create(brand_name=name_f, brand_image=brand_image_f)
+
+        if Brand.objects.filter(brand_name=name_f).exists():
+            messages.error(request, 'A Brand with this name already exists.')
+        else:
+            Brand.objects.create(brand_name=name_f, brand_image=brand_image_f)
+            messages.success(request, 'Brand created successfully.')
+
         return redirect('/brand')
     else:
         return render(request, 'brandform.html')
+    
+
     
 def Active_brand(request,id):
     data=Brand.objects.get(id=id)
@@ -123,11 +191,29 @@ def updatebrand(request,id):
     context={'data':data}
     return render(request,'updatebrand.html',context)
 
+@login_required
 def collection(request):
-    collections = Collection.objects.filter(is_active=True)
+    collections = Collection.objects.all()
     brands = Brand.objects.all()
     context = {'collections': collections, 'brands': brands}
     return render(request, 'collection.html', context)
+
+# def collectionform(request):
+#     brands = Brand.objects.all()
+
+#     if request.method == 'POST':
+#         collection_name_f = request.POST['collection_name']
+#         brand_id = request.POST['brand_name']
+
+#         try:
+#             brand_obj = Brand.objects.get(id=brand_id)
+#             Collection.objects.create(collection_name=collection_name_f, brand=brand_obj)
+#             return redirect('/collection')
+#         except Brand.DoesNotExist:
+#             return render(request, 'collectionform.html', {'brands': brands})
+
+#     return render(request, 'collectionform.html', {'brands': brands})
+
 
 def collectionform(request):
     brands = Brand.objects.all()
@@ -138,11 +224,15 @@ def collectionform(request):
 
         try:
             brand_obj = Brand.objects.get(id=brand_id)
-            Collection.objects.create(collection_name=collection_name_f, brand=brand_obj)
-            return redirect('/collection')
+            if Collection.objects.filter(collection_name=collection_name_f, brand=brand_obj).exists():
+                messages.error(request, 'A Collection with this name already exists for the selected brand.')
+            else:
+                Collection.objects.create(collection_name=collection_name_f, brand=brand_obj)
+                messages.success(request, 'Collection created successfully.')
+                return redirect('/collection')
         except Brand.DoesNotExist:
-            return render(request, 'collectionform.html', {'brands': brands})
-
+            messages.error(request, 'Invalid Brand selected.')
+    
     return render(request, 'collectionform.html', {'brands': brands})
 
 
@@ -163,20 +253,41 @@ def deletecollection(request,id):
     data.delete()
     return redirect('/collection')
 
-def updatecollection(request,id):
-    data=Collection.objects.get(id=id)
-    brand=Brand.objects.all()
-    if request.method=='POST':
-        collection_name_f=request.POST['collection_name']
+# def updatecollection(request,id):
+#     data=Collection.objects.get(id=id)
+#     brand=Brand.objects.all()
+#     if request.method=='POST':
+#         collection_name_f=request.POST['collection_name']
 
-        data.collection_name=collection_name_f
-        data.save()
-        return redirect('/collection')
-    context={'data':data,'brand':brand}
-    return render(request,'updatecollection.html',context)
+#         data.collection_name=collection_name_f
+#         data.save()
+#         return redirect('/collection')
+#     context={'data':data,'brand':brand}
+#     return render(request,'updatecollection.html',context)
 
+def updatecollection(request, id):
+    data = Collection.objects.get(id=id)
+    brands = Brand.objects.all()
+
+    if request.method == 'POST':
+        collection_name_f = request.POST['collection_name']
+        brand_id = request.POST['brand_name']
+
+        try:
+            brand_obj = Brand.objects.get(id=brand_id)
+            data.collection_name = collection_name_f
+            data.brand = brand_obj
+            data.save()
+            return redirect('/collection')
+        except Brand.DoesNotExist:
+            return render(request, 'updatecollection.html', {'data': data, 'brands': brands})
+
+    context = {'data': data, 'brands': brands}
+    return render(request, 'updatecollection.html', context)
+
+@login_required 
 def series(request):
-    series = Series.objects.filter(is_active=True)
+    series = Series.objects.all()
     collection = Collection.objects.all()
     context = {'series': series, 'collection': collection}
     return render(request, 'series.html', context)

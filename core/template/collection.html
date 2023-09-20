@@ -6,6 +6,13 @@
         <div class="row">
           <div class="col-sm-6 ps-0">
             <h3>Collection Table</h3>
+            {% if messages %}   
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
           </div>
           <div class="col-sm-6 pe-0">
             <a href="#"> 
@@ -36,7 +43,7 @@
                                 <div class="col-md-12">
                                   <div class="col-12" style="margin-top: 5px;"> 
                                       <label class="form-label" for="collection_name">Collection Name</label>
-                                      <input class="form-control" id="collection_name" name="collection_name" type="text" placeholder="Name" aria-label="Name" required>
+                                      <input class="form-control" id="collection_name" name="collection_name" type="text" placeholder="Name" required>
                                   </div>
                                 </div>
                                 <div class="col-6">
@@ -56,7 +63,7 @@
     <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
-            <h3>Brands</h3>
+            <h3>Collections</h3>
           </div>
           <div class="card-block row">
             <div class="col-sm-12 col-lg-12 col-xl-12">

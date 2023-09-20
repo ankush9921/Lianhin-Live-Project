@@ -3,16 +3,18 @@ from .import views
 
 
 urlpatterns = [
-    path('sign_in',views.sign_in,name='sign_in'),
+    path('',views.sign_in,name='sign_in'),
+    path('sign_out/', views.sign_out, name='sign_out'),
     # path('sign_up',views.sign_up,name='sign_up'),
-    path('',views.index,name='index'),
+    path('index',views.index,name='index'),
 
     path('surfacefinish',views.surfacefinish,name='surfacefinish'),
     path('surfacefinishform',views.surfacefinishform,name='surfacefinishform'),
     path('Active_surfacefinish/<int:id>',views.Active_surfacefinish,name='Active_surfacefinish'),
     path('Deactive_surfacefinish/<int:id>',views.Deactive_surfacefinish,name='Deactive_surfacefinish'),
-    path('updatesurfacefisnish/<int:id>',views.updatesurfacefinish,name='updatesurfacefinish'),
+    path('updatesurfacefinish/<int:id>',views.updatesurfacefinish,name='updatesurfacefinish'),
     path('deletesurfacefinish/<int:id>',views.deletesurfacefinish,name='deletesurfacefinish'),
+    
 
     path('brand',views.brand,name='brand'),
     path('brandform',views.brandform,name='brandform'),

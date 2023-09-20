@@ -2,27 +2,27 @@
 
               <div class="container-fluid" style="padding-left: 120px; padding-top:20px">
                 <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-12">
                     <div class="card">
                       <div class="card-header pb-0">
                         <h3>Update form</h3>
-                        <a href="{% url 'surfacefisnish' %}"><i class="icofont icofont-undo" style="padding-left: 500px;"></i></a>
+                        <button class="btn btn-primary" style="margin-left: 1100px;" type="submit"><a href="{% url 'surfacefinish' %}" style="color: white;">Back</a></button>
 
                       </div>
                       <div class="card-body">
                         <div class="card-wrapper border rounded-3">
                           
-                          <form class="row g-8" action="{% url 'updatesurfacefisnish' data.id %}" method="POST" enctype="multipart/form-data">
+                          <form class="row g-8" action="{% url 'updatesurfacefinish' data.id %}" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
-                          <div class="col-6">
+                          <div class="col-12">
                             <label class="form-label" for="name">Name</label>
                             <input class="form-control" id="name" value="{{data.name}}" name="name" type="text" placeholder="Name" aria-label="Name" >
                           </div>
 
                           
     
-                          <div class="col-6"> 
-                            <label class="form-label" for="icon">Choose icon</label>
+                          <div class="col-12"> 
+                            <label class="form-label" for="icon" style="margin-top: 10px;">Choose icon</label>
 
                             <input class="form-control" name="icon" id="icon" type="file" id="icon"  value="{{data.icon}}" >
                            
@@ -31,7 +31,7 @@
                             <button class="btn btn-primary" style="margin-top: 30px;" type="submit">Submit</button>
                           </div>
                           <div class="col-6">
-                            <img src="{{data.icon.url}}" style="height: 100px; padding-left: 150px;" >
+                            <img src="{{data.icon.url}}" style="height: 100px; padding-left: 400px; padding-top: 20px;" >
                           </div>
                         </form>
                         </div>
