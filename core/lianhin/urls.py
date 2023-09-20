@@ -9,6 +9,7 @@ urlpatterns = [
     path('sign_out/', views.sign_out, name='sign_out'),
     # path('sign_up',views.sign_up,name='sign_up'),
     path('index',views.index,name='index'),
+    path('accounts/sign_in/', views.sign_in, name='sign_in'),
 
     path('surfacefinish',views.surfacefinish,name='surfacefinish'),
     path('surfacefinishform',views.surfacefinishform,name='surfacefinishform'),

@@ -31,23 +31,8 @@ def sign_out(request):
     auth.logout(request)
     return redirect('/')
 
-def error_400_view(request, exception):
-    return render(request, 'error_400.html', status=400)
-
-def error_401_view(request, exception):
-    return render(request, 'error_401.html', status=401)
-
-def error_403_view(request, exception):
-    return render(request, 'error_403.html', status=403)
-
 def error_404_view(request, exception):
     return render(request, 'error_404.html', status=404)
-
-def error_500_view(request):
-    return render(request, 'error_500.html', status=500)
-
-def error_503_view(request):
-    return render(request, 'error_503.html', status=503)
 
 @login_required
 def index(request):

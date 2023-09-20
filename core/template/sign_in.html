@@ -41,7 +41,7 @@
         <div class="col-12 p-0">    
           <div class="login-card login-dark">
             <div>
-              <div><a class="logo" href="{% url 'sign_in' %}"><img class="img-fluid for-light" src="{% static 'assets/images/Logo123.png' %}" alt="looginpage"><img class="img-fluid for-dark" src="{% static 'assets/images/logo/logo.png' %}" alt="looginpage"></a></div>
+              <div><a class="logo" href="{% url 'sign_in' %}"><img class="img-fluid for-light" src="{% static 'assets/images/Lian-Hin.png' %}" alt="looginpage"><img class="img-fluid for-dark" src="{% static 'assets/images/Lian-Hin.png' %}" alt="looginpage"></a></div>
               <div class="login-main"> 
                 <form class="theme-form" action="{% url 'sign_in' %}" method="POST">
                   {% csrf_token %}
@@ -51,17 +51,34 @@
                     <label class="col-form-label">Username</label>
                     <input class="form-control" type="text" id="username" name="username" required="" placeholder="Username">
                   </div>
+
                   <div class="form-group">
                     <label class="col-form-label">Password</label>
                     <div class="form-input position-relative">
-                      <input class="form-control" type="password"id="password" name="password" required="" placeholder="Password">
-                      <div class="show-hide"><span class="show">                         </span></div>
+                        <input class="form-control" type="password" id="password" name="password" required="" placeholder="Password">
+                        <div class="show-hide">
+                            <span class="show" onclick="showPassword()"></span>
+                        </div>
                     </div>
-                  </div>
+                </div>
+                <script>
+                  function showPassword() {
+                      var passwordInput = document.getElementById("password");
+                      var showHideSpan = document.querySelector(".show");
+              
+                      if (passwordInput.type === "password") {
+                          passwordInput.type = "text";
+                      } else {
+                          passwordInput.type = "password";
+                          showHideSpan.textContent = "Show";
+                      }
+                  }
+              </script>
+            
                   <div class="form-group mb-0">
                     <div class="checkbox p-0">
                       <input id="checkbox1" type="checkbox">
-                    </div><a class="link" href="forget-password.html">Forgot password?</a>
+                    </div><a class="link" href="#">Forgot password?</a>
                     <div class="text-end mt-3">
                       <button class="btn btn-primary btn-block w-100" type="submit">Sign in</button>
                     </div>
