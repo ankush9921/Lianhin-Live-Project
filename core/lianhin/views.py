@@ -363,8 +363,30 @@ def deleteseries(request,id):
 #     context={'data':data,'collection':collection}
 #     return render(request,'updateseries.html',context)
 
+# def updateseries(request, id):
+#     series = Series.objects.get(id=id)
+#     collections = Collection.objects.all()
+
+#     if request.method == 'POST':
+#         series_name_f = request.POST['series_name']
+#         collection_id = request.POST['collection']
+
+#         try:
+#             collection_obj = Collection.objects.get(id=collection_id)
+
+#             series.series_name = series_name_f
+#             series.collection = collection_obj 
+#             series.save()
+
+#             return redirect('/series')
+#         except Collection.DoesNotExist:
+#             messages.error(request, 'Invalid Collection selected.')
+
+#     context = {'data': series, 'collection': collections}
+#     return render(request, 'updateseries.html', context)
+
 def updateseries(request, id):
-    series = Series.objects.get(id=id)
+    series = get_object_or_404(Series, id=id)
     collections = Collection.objects.all()
 
     if request.method == 'POST':
@@ -378,9 +400,11 @@ def updateseries(request, id):
             series.collection = collection_obj 
             series.save()
 
-            return redirect('/series')
+            return redirect('/series')  # Redirect to the series list page
         except Collection.DoesNotExist:
-            messages.error(request, 'Invalid Collection selected.')
+            # Handle the case where the selected collection does not exist
+            # You can add an error message or perform other actions as needed
+            pass
 
-    context = {'data': series, 'collection': collections}
+    context = {'series': series, 'collections': collections}
     return render(request, 'updateseries.html', context)

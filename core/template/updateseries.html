@@ -12,24 +12,26 @@
                       <div class="card-body">
                         <div class="card-wrapper border rounded-3">
                           
-                          <form class="row g-8" action="{% url 'updateseries' data.id %}" method="POST" enctype="multipart/form-data">
+                          <form class="row g-8" action="{% url 'updateseries' series.id %}" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
 
                             <div class="col-12"> 
                               <label for="collection_name">Collection Name</label>
-                              <select name="collection" id="collection" class="form-select">
-                                <option value="" disabled>Select Collection</option>
-                                {% for collection in collections %}
-                                <option value="{{ collection.id }}" {% if data.collection.id == collection.id %}selected{% endif %}>
-                                  {{ collection.collection_name }}
-                                </option>
-                                {% endfor %}
+                              <select id="collection" name="collection" class="form-select">
+                                  <option value="" disabled>Select Collection</option>
+                                  {% for collection in collections %}
+                                  <option value="{{ collection.id }}" {% if series.collection.id == collection.id %}selected{% endif %}>
+                                      {{ collection.collection_name }}
+                                  </option>
+                                  {% endfor %}
                               </select>
-
                             </div>
                             <div class="col-12" style="margin-top: 5px;">
-                              <label class="form-label" for="series_name">Series Name</label>
-                              <input class="form-control" id="series_name" value="{{data.series_name}}" name="series_name" type="text" placeholder="Name" aria-label="Name" >
+                              <div class="form-group">
+                                <label for="series_name">Series Name:</label>
+                                <input type="text" class="form-control" id="series_name" name="series_name" value="{{ series.series_name }}">
+                              </div>
+                              
                             </div>
                           
 
@@ -47,3 +49,4 @@
 
 
               {% endblock %}
+
