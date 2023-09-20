@@ -95,15 +95,36 @@
                           {% else %}
                               <a href="{% url 'Deactive_surfacefinish' i.id %}" class="badge rounded-pill badge-success">Active</a>
                           {% endif %}
-                        </td>
-
-          
+                        </td>          
 
                         <td>
-                            <button class="btn btn-outline-light btn-xs txt-dark" type="button" data-bs-original-title="btn btn-outline-primary btn-xs"><a href="{% url 'updatesurfacefinish' i.id %}"><i class="icofont icofont-edit"></i></a></button>
-                            <button class="btn btn-outline-light btn-xs txt-dark" type="button" data-bs-original-title="btn btn-outline-primary btn-xs"><a href="{% url 'deletesurfacefinish' i.id %}"><i class="icofont icofont-trash"></i></a></button>
-                        </td>
+                          <a href="{% url 'updatesurfacefinish' i.id %}" class="btn btn-outline-light btn-xs txt-dark">
+                            <i class="icofont icofont-edit"></i>
+                        </a>
+                            <button class="btn btn-outline-light btn-xs txt-dark" type="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ i.id }}">
+                              <i class="icofont icofont-trash"></i>
+                            </button>                        
+                          </td>
                         </tr>
+                        <!-- Confirmation Modal for Delete -->
+                          <div class="modal fade" id="confirmDeleteModal{{ i.id }}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  Are you sure you want to delete this item?
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                  <a href="{% url 'deletesurfacefinish' i.id %}" class="btn btn-danger">Yes</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- End Confirmation Modal -->
                         {% endfor %}
                   </tbody>
                 </table>
@@ -119,14 +140,3 @@
 
 {% endblock %}
 
-<!-- <div class="btn-showcase">
-    <button class="btn btn-primary" type="button" data-bs-toggle="tooltip" data-bs-original-title="btn btn-primary">Primary Button</button>
-    <button class="btn btn-secondary" type="button" data-bs-toggle="tooltip" data-bs-original-title="btn btn-secondary">Secondary Button</button>
-    <button class="btn btn-success" type="button" data-bs-toggle="tooltip" data-bs-original-title="btn btn-success">Success Button</button>
-    <button class="btn btn-info" type="button" data-bs-toggle="tooltip" data-bs-original-title="btn btn-info">Info Button</button>
-    <button class="btn btn-warning" type="button" data-bs-toggle="tooltip" data-bs-original-title="btn btn-warning">Warning Button</button>
-    <button class="btn btn-danger" type="button" data-bs-toggle="tooltip" data-bs-original-title="btn btn-danger">Danger Button</button>
-    <button class="btn btn-light" type="button" data-bs-toggle="tooltip" data-bs-original-title="btn btn-light">Light Button</button>
-  </div> -->
-
-  

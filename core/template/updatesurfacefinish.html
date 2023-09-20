@@ -15,13 +15,13 @@
                           <form class="row g-8" action="{% url 'updatesurfacefinish' data.id %}" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                           <div class="col-12">
-                            <label class="form-label" for="name">Name</label>
-                            <input class="form-control" id="name" value="{{data.name}}" name="name" type="text" placeholder="Name" aria-label="Name" >
+                            <label class="form-label" for="surface_name">Name</label>
+                            <input class="form-control" id="surface_name" value="{{data.surface_name}}" name="surface_name" type="text" placeholder="Name" aria-label="Name" >
                           </div>
 
                           
     
-                          <div class="col-12"> 
+                          <div class="col-12" style="margin-top: 5px;"> 
                             <label class="form-label" for="icon" style="margin-top: 10px;">Choose icon</label>
 
                             <input class="form-control" name="icon" id="icon" type="file" id="icon"  value="{{data.icon}}" >
