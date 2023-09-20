@@ -129,7 +129,7 @@ def updatesurfacefinish(request,id):
 
 @login_required
 def brand(request):
-    data=Brand.objects.filter(is_active=True)
+    data=Brand.objects.all()
     context={'data':data}
     return render(request,'brand.html',context)
     
