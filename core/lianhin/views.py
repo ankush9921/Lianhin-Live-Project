@@ -292,21 +292,59 @@ def series(request):
     context = {'series': series, 'collection': collection}
     return render(request, 'series.html', context)
 
+# def seriesform(request):
+#     collections = Collection.objects.all()
+
+#     if request.method == 'POST':
+#         series_name_f = request.POST['series_name']
+#         collection_id = request.POST['collection_name']
+
+#         try:
+#             collection_obj = Collection.objects.get(id=collection_id)
+#             Series.objects.create(series_name=series_name_f, collection=collection_obj)
+#             return redirect('/series')
+#         except Collection.DoesNotExist:
+#             return render(request, 'seriesform.html', {'collections': collections})
+
+#     return render(request, 'seriesform.html', {'collections': collections})
 def seriesform(request):
     collections = Collection.objects.all()
+    if request.method == 'POST':
+            series_name_f = request.POST['series_name']
+            collection_id = request.POST['collection_name']
+
+            try:
+                collection_obj = Collection.objects.get(id=collection_id)
+                if Series.objects.create(series_name=series_name_f, collection=collection_obj).exists():
+                    messages.error(request, 'A Series with this name already exists for the selected Collection.')
+                else:
+                    Series.objects.create(series_name=series_name_f, collection=collection_obj)
+                    messages.success(request, 'Series created successfully.')
+                    return redirect('/series')
+            except Collection.DoesNotExist:
+                messages.error(request, 'Invalid Collection selected.')
+    
+    return render(request, 'seriesform.html', {'collections': collections})       
+
+def collectionform(request):
+    brands = Brand.objects.all()
 
     if request.method == 'POST':
-        series_name_f = request.POST['series_name']
-        collection_id = request.POST['collection_name']
+        collection_name_f = request.POST['collection_name']
+        brand_id = request.POST['brand_name']
 
         try:
-            collection_obj = Collection.objects.get(id=collection_id)
-            Series.objects.create(series_name=series_name_f, collection=collection_obj)
-            return redirect('/series')
-        except Collection.DoesNotExist:
-            return render(request, 'seriesform.html', {'collections': collections})
-
-    return render(request, 'seriesform.html', {'collections': collections})
+            brand_obj = Brand.objects.get(id=brand_id)
+            if Collection.objects.filter(collection_name=collection_name_f, brand=brand_obj).exists():
+                messages.error(request, 'A Collection with this name already exists for the selected brand.')
+            else:
+                Collection.objects.create(collection_name=collection_name_f, brand=brand_obj)
+                messages.success(request, 'Collection created successfully.')
+                return redirect('/collection')
+        except Brand.DoesNotExist:
+            messages.error(request, 'Invalid Brand selected.')
+    
+    return render(request, 'collection.html', {'brands': brands})                                                      
 
 
 def Active_series(request,id):
