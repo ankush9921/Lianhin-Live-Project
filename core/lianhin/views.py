@@ -44,38 +44,6 @@ def surfacefinish(request):
     context={'data':data}
     return render(request,'surfacefinish.html',context)
     
-# def surfacefinishform(request):
-#     if request.method == 'POST':
-#         name_f = request.POST['surface_name']
-#         icon_f = request.FILES['icon']
-#         Surfacefinish.objects.create(surface_name=name_f, icon=icon_f)
-#         return redirect('/surfacefinish')
-#     else:
-#         return render(request, 'surfacefinishform')
-
-# def surfacefinishform(request):
-#     if request.method == 'POST':
-#         name_f = request.POST['surface_name']
-#         icon_f = request.FILES['icon']
-        
-#         # Check if a record with the same name already exists
-#         existing_record = Surfacefinish.objects.filter(surface_name=name_f).first()
-        
-#         if existing_record:
-#             # Handle the case where the name already exists
-#             # You can display an error message to the user
-#             # or update the existing record if needed
-#             # For example, you can update the icon of the existing record:
-#             existing_record.icon = icon_f
-#             existing_record.save()
-#         else:
-#             # Create a new record if the name is unique
-#             Surfacefinish.objects.create(surface_name=name_f, icon=icon_f)
-        
-#         return redirect('/surfacefinish')
-#     else:
-#         return render(request, 'surfacefinishform.html')
-
 def surfacefinishform(request):
     if request.method == 'POST':
         name_f = request.POST['surface_name']
@@ -133,15 +101,6 @@ def brand(request):
     context={'data':data}
     return render(request,'brand.html',context)
     
-# def brandform(request):
-#     if request.method == 'POST':
-#         name_f = request.POST['brand_name']
-#         brand_image_f = request.FILES['brand_image']
-#         Brand.objects.create(brand_name=name_f, brand_image=brand_image_f)
-#         return redirect('/brand')
-#     else:
-#         return render(request, 'brandform.html')
-
 def brandform(request):
     if request.method == 'POST':
         name_f = request.POST['brand_name']
@@ -201,23 +160,6 @@ def collection(request):
     context = {'collections': collections, 'brands': brands}
     return render(request, 'collection.html', context)
 
-# def collectionform(request):
-#     brands = Brand.objects.all()
-
-#     if request.method == 'POST':
-#         collection_name_f = request.POST['collection_name']
-#         brand_id = request.POST['brand_name']
-
-#         try:
-#             brand_obj = Brand.objects.get(id=brand_id)
-#             Collection.objects.create(collection_name=collection_name_f, brand=brand_obj)
-#             return redirect('/collection')
-#         except Brand.DoesNotExist:
-#             return render(request, 'collectionform.html', {'brands': brands})
-
-#     return render(request, 'collectionform.html', {'brands': brands})
-
-
 def collectionform(request):
     brands = Brand.objects.all()
 
@@ -256,18 +198,6 @@ def deletecollection(request,id):
     data.delete()
     return redirect('/collection')
 
-# def updatecollection(request,id):
-#     data=Collection.objects.get(id=id)
-#     brand=Brand.objects.all()
-#     if request.method=='POST':
-#         collection_name_f=request.POST['collection_name']
-
-#         data.collection_name=collection_name_f
-#         data.save()
-#         return redirect('/collection')
-#     context={'data':data,'brand':brand}
-#     return render(request,'updatecollection.html',context)
-
 def updatecollection(request, id):
     data = Collection.objects.get(id=id)
     brands = Brand.objects.all()
@@ -295,23 +225,6 @@ def series(request):
     context = {'series': series, 'collections': collections}
     return render(request, 'series.html', context)
 
-# def seriesform(request):
-#     collections = Collection.objects.all()
-
-#     if request.method == 'POST':
-#         series_name_f = request.POST['series_name']
-#         collection_id = request.POST['collection_name']
-
-#         try:
-#             collection_obj = Collection.objects.get(id=collection_id)
-#             Series.objects.create(series_name=series_name_f, collection=collection_obj)
-#             return redirect('/series')
-#         except Collection.DoesNotExist:
-#             return render(request, 'seriesform.html', {'collections': collections})
-
-#     return render(request, 'seriesform.html', {'collections': collections})
-
-      
 def seriesform(request):
     collections = Collection.objects.all()
     if request.method == 'POST':
@@ -349,41 +262,6 @@ def deleteseries(request,id):
     data.delete()
     return redirect('/series')
 
-# def updateseries(request,id):
-#     data=Series.objects.get(id=id)
-#     collection=Collection.objects.all()
-#     if request.method=='POST':
-#         series_name_f = request.POST['series_name']
-
-
-#         data.series_name=series_name_f
-#         data.save()
-#         return redirect('/series')
-#     context={'data':data,'collection':collection}
-#     return render(request,'updateseries.html',context)
-
-# def updateseries(request, id):
-#     series = Series.objects.get(id=id)
-#     collections = Collection.objects.all()
-
-#     if request.method == 'POST':
-#         series_name_f = request.POST['series_name']
-#         collection_id = request.POST['collection']
-
-#         try:
-#             collection_obj = Collection.objects.get(id=collection_id)
-
-#             series.series_name = series_name_f
-#             series.collection = collection_obj 
-#             series.save()
-
-#             return redirect('/series')
-#         except Collection.DoesNotExist:
-#             messages.error(request, 'Invalid Collection selected.')
-
-#     context = {'data': series, 'collection': collections}
-#     return render(request, 'updateseries.html', context)
-
 def updateseries(request, id):
     series = get_object_or_404(Series, id=id)
     collections = Collection.objects.all()
@@ -413,28 +291,6 @@ def model(request):
     surfacefinishes = Surfacefinish.objects.all()  
     context = {'model': model, 'series_data': series_data, 'surfacefinishes': surfacefinishes}
     return render(request, 'model.html', context)
-
-# def modelform(request):
-#     series_data = Series.objects.all()
-#     if request.method == 'POST':
-#         model_name_f = request.POST['model_name']
-#         series_id = request.POST['series_name']
-#         model_image_f = request.FILES['model_image']
-
-
-#         try:
-#             series_obj = Series.objects.get(id=series_id)
-
-#             # if Series.objects.filter(model_name=model_name_f, series=series_obj).exists():
-#             #     messages.error(request, 'A Series with this name already exists for the selected Collection.')
-#             # else:
-#             Model.objects.create(model_name=model_name_f, series=series_obj ,model_image=model_image_f)
-#             messages.success(request, 'Model created successfully.')
-#             return redirect('/model')
-#         except Series.DoesNotExist:
-#             messages.error(request, 'Invalid Series selected.')
-
-#     return render(request, 'model.html', {'series_data': series_data})
 
 
 def modelform(request):
