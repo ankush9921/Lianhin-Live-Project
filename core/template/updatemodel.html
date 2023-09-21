@@ -26,12 +26,12 @@
                                 </select>
                             </div>
                             <div class="col-12"> 
-                                <label for="surfacefinish_name">Surface Finish</label>
-                                <select id="surfacefinish_name" name="surfacefinish_name" class="form-select">
+                                <label for="surface_name">Surface Finish</label>
+                                <select id="surface_name" name="surface_name" class="form-select">
                                     <option value="" disabled>Select Surface Finish</option>
                                     {% for surfacefinish in surfacefinishes %}
                                     <option value="{{ surfacefinish.id }}" {% if model.surfacefinish_id.id == surfacefinish.id %}selected{% endif %}>
-                                        {{ surfacefinish.surfacefinish_name }}
+                                        {{ surfacefinish.surface_name }}
                                     </option>
                                     {% endfor %}
                                 </select>
@@ -48,6 +48,9 @@
                             </div>
                             <div class="col-6">
                                 <button class="btn btn-primary" style="margin-top: 20px;" type="submit">Submit</button>
+                            </div>
+                            <div class="col-6">
+                                <img src="{{model.model_image.url}}" style="height: 100px; padding-left: 400px; padding-top: 20px;">
                             </div>
                         </form>
                     </div>

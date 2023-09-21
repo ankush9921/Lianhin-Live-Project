@@ -409,7 +409,9 @@ def updateseries(request, id):
 @login_required
 def model(request):
     model = Model.objects.all()
-    context = {'model': model}
+    series_data = Series.objects.all()
+    surfacefinishes = Surfacefinish.objects.all()  
+    context = {'model': model, 'series_data': series_data, 'surfacefinishes': surfacefinishes}
     return render(request, 'model.html', context)
 
 # def modelform(request):
@@ -441,9 +443,9 @@ def modelform(request):
 
     if request.method == 'POST':
         model_name_f = request.POST['model_name']
+        model_image_f = request.FILES['model_image']
         series_id = request.POST['series_name']
         surfacefinish_id = request.POST['surface_name']  
-        model_image_f = request.FILES['model_image']
 
         try:
             series_obj = Series.objects.get(id=series_id)
@@ -457,13 +459,14 @@ def modelform(request):
             )
 
             messages.success(request, 'Model created successfully.')
-            return redirect('/models')  
+            return redirect('/model')  
         except Series.DoesNotExist:
             messages.error(request, 'Invalid Series selected.')
         except Surfacefinish.DoesNotExist:
             messages.error(request, 'Invalid Surfacefinish selected.')
+    context = {'model': model, 'series_data': series_data, 'surfacefinishes': surfacefinishes}
 
-    return render(request, 'model', {'series_data': series_data, 'surfacefinishes': surfacefinishes})
+    return render(request, context)
 
 
 def Active_model(request,id):
@@ -491,7 +494,7 @@ def updatemodel(request, id):
     if request.method == 'POST':
         model_name_f = request.POST['model_name']
         series_id = request.POST['series_name']
-        surfacefinish_id = request.POST['surfacefinish_name']
+        surfacefinish_id = request.POST['surface_name']
         model_image_f = request.FILES['model_image']
 
         try:
@@ -500,15 +503,15 @@ def updatemodel(request, id):
 
             model.model_name = model_name_f
             model.series = series_obj
-            model.surfacefinish_id = surfacefinish_obj
+            model.surfacefinish = surfacefinish_obj
             model.model_image = model_image_f
             model.save()
 
-            return redirect('/models')
+            return redirect('/model')
         except Series.DoesNotExist:
             messages.error(request, 'Invalid Series selected.')
         except Surfacefinish.DoesNotExist:
             messages.error(request, 'Invalid Surfacefinish selected.')
 
     context = {'model': model, 'series_data': series_data, 'surfacefinishes': surfacefinishes}
-    return render(request, 'model_update.html', context)
+    return render(request, 'updatemodel.html', context)

@@ -85,7 +85,6 @@
             </div>
         </div>
     </div>
-    <!-- Container-fluid starts-->
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header">
@@ -99,20 +98,20 @@
                               <tr>
                                   <th scope="col">Sr.No</th>
                                   <th scope="col">Series Name</th>
+                                  <th scope="col">Surface Finish</th>
                                   <th scope="col">Model Name</th>
-                                  <th scope="col">Surface Finish</th> <!-- Added Surface Finish column -->
                                   <th scope="col">Model Image</th>
-                                  <th scope="col">Status</th> <!-- Added Status column -->
+                                  <th scope="col">Status</th> 
                                   <th scope="col">Action</th>
                               </tr>
                           </thead>
                           <tbody>
-                              {% for model in models %}
+                              {% for model in model %}
                                   <tr>
                                       <th scope="row">{{ forloop.counter }}</th>
+                                      <td>{{ model.surfacefinish.surface_name }}</td>
                                       <td>{{ model.series.series_name }}</td>
                                       <td>{{ model.model_name }}</td>
-                                      <td>{{ model.surfacefinish.surface_name }}</td> <!-- Display Surface Finish -->
                                       <td>
                                           {% if model.model_image %}
                                               <img src="{{ model.model_image.url }}" alt="{{ model.model_name }}" width="100">
@@ -121,7 +120,7 @@
                                           {% endif %}
                                       </td>
                                       <td>
-                                        {% if i.is_active %}
+                                        {% if model.is_active %}
                                           <a href="{% url 'Active_model' model.id %}" class="badge rounded-pill badge-danger">Deactive</a>
                                         {% else %}
                                             <a href="{% url 'Deactive_model' model.id %}" class="badge rounded-pill badge-success">Active</a>
