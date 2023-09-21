@@ -4,11 +4,11 @@ from lianhin.basecontent import BaseContent
 # Create your models here.
 
 class Surfacefinish(BaseContent):
-    surface_name = models.CharField(max_length=255, unique=True)
+    surface_name = models.CharField(max_length=255)
     icon = models.FileField(upload_to='surface',blank=True,null=True)
 
 class Brand(BaseContent):
-    brand_name = models.CharField(max_length=255, unique=True)
+    brand_name = models.CharField(max_length=255)
     brand_image = models.FileField(upload_to='brand',blank=True,null=True)
 
 

@@ -41,7 +41,8 @@
         <div class="col-12 p-0">    
           <div class="login-card login-dark">
             <div>
-              <div><a class="logo" href="{% url 'sign_in' %}"><img class="img-fluid for-light" src="{% static 'assets/images/Lian-Hin.png' %}" alt="looginpage"><img class="img-fluid for-dark" src="{% static 'assets/images/Lian-Hin.png' %}" alt="looginpage"></a></div>
+              <div style="    max-width: 250px; margin: auto;"><a class="logo" href="{% url 'sign_in' %}"><img class="img-fluid for-light" src="{% static 'assets/images/Lian-Hin.png' %}" alt="looginpage">
+                </a></div>
               <div class="login-main"> 
                 <form class="theme-form" action="{% url 'sign_in' %}" method="POST">
                   {% csrf_token %}

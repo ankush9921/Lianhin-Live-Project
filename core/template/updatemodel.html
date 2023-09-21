@@ -44,13 +44,13 @@
                             </div>
                             <div class="col-12" style="margin-top: 5px;">
                                 <label for="model_image">Model Image:</label>
-                                <input type="file" class="form-control" id="model_image" name="model_image" accept="image/*">
+                                <input type="file" class="form-control" id="model_image" name="model_image" value="{{model.model_image}}">
                             </div>
                             <div class="col-6">
                                 <button class="btn btn-primary" style="margin-top: 20px;" type="submit">Submit</button>
                             </div>
                             <div class="col-6">
-                                <img src="{{model.model_image.url}}" style="height: 100px; padding-left: 400px; padding-top: 20px;">
+                                <img src="{{data.model_image.url}}" style="height: 100px; padding-left: 400px; padding-top: 20px;">
                             </div>
                         </form>
                     </div>

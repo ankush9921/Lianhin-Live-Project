@@ -348,18 +348,18 @@ def updatemodel(request, id):
     surfacefinishes = Surfacefinish.objects.all()
 
     if request.method == 'POST':
-        model_name_f = request.POST['model_name']
-        series_id = request.POST['series_name']
-        surfacefinish_id = request.POST['surface_name']
-        model_image_f = request.FILES['model_image']
+        model_name_f = request.POST.get('model_name')
+        series_id = request.POST.get('series_name')
+        surfacefinish_id = request.POST.get('surface_name')
+        model_image_f = request.FILES.get('model_image')
 
         try:
             series_obj = Series.objects.get(id=series_id)
             surfacefinish_obj = Surfacefinish.objects.get(id=surfacefinish_id)
 
             model.model_name = model_name_f
-            model.series = series_obj
-            model.surfacefinish = surfacefinish_obj
+            # model.series = series_obj
+            # model.surfacefinish = surfacefinish_obj
             model.model_image = model_image_f
             model.save()
 
@@ -371,3 +371,4 @@ def updatemodel(request, id):
 
     context = {'model': model, 'series_data': series_data, 'surfacefinishes': surfacefinishes}
     return render(request, 'updatemodel.html', context)
+    
