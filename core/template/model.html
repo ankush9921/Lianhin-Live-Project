@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="page-body">
+    <div class="container-fluid">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-sm-6 ps-0">
+                    <h3>Model Table</h3>
+                    {% if messages %}   
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div class="col-sm-6 pe-0">
+                    <a href="#"> 
+                        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalgetbootstrap" data-whatever="@getbootstrap" style="margin-left: 450px;"> ADD DATA</button>
+                    </a>
+                    <div class="modal fade" id="exampleModalgetbootstrap" tabindex="-1" aria-labelledby="exampleModalgetbootstrap" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-toggle-wrapper social-profile text-start dark-sign-up">
+                                    <h3 class="modal-header justify-content-center border-0">Model Form</h3>
+                                    <div class="modal-body">
+                                        <form class="row g-3" action="{% url 'modelform' %}" method="POST" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="col-md-12">
+                                                <div class="col-12">
+                                                    <label for="series_name">Series</label>
+                                                    <select name="series_name" id="series_name" class="form-select">
+                                                        <option value="" selected>Select a Series</option>
+                                                        {% for series in series_data %}
+                                                            <option value="{{ series.id }}">{{ series.series_name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            <div class="col-md-12">
+                                                <div class="col-12">
+                                                  <label for="surface_name">Surfacefinish</label>
+                                                  <select name="surface_name" id="surface_name" class="form-select">
+                                                      <option value="" selected>Select a Surfacefinish</option>
+                                                      {% for surfacefinish in surfacefinishes %}
+                                                          <option value="{{ surfacefinish.id }}">{{ surfacefinish.surface_name }}</option>
+                                                      {% endfor %}
+                                                  </select>
+                                                    <!-- <label for="surface_name">Surfacefinish</label>
+                                                    <select name="surface_name" id="surface_name" class="form-select">
+                                                        <option value="" selected>Select a Surfacefinish</option>
+                                                        {% for i in surfacefinishes %}
+                                                            <option value="{{ i.id }}">{{ i.surface_name }}</option>
+                                                        {% endfor %}
+                                                    </select> -->
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-12">
+                                                <div class="col-12" style="margin-top: 5px;"> 
+                                                    <label class="form-label" for="model_name">Model Name</label>
+                                                    <input class="form-control" id="model_name" name="model_name" type="text" placeholder="Name" aria-label="Name" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-12" style="margin-top: 5px;"> 
+                                                    <label class="form-label" for="model_image">Model Image</label>
+                                                    <input class="form-control" id="model_image" name="model_image" type="file" accept="image/*">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <button class="btn btn-primary" style="margin-top: 10px; margin-left: 10px;" type="submit">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid starts-->
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3>Models</h3>
+            </div>
+            <div class="card-block row">
+                <div class="col-sm-12 col-lg-12 col-xl-12">
+                    <div class="table-responsive theme-scrollbar">
+                        <table class="table table-responsive theme-scrollbar-sm">
+                          <thead>
+                              <tr>
+                                  <th scope="col">Sr.No</th>
+                                  <th scope="col">Series Name</th>
+                                  <th scope="col">Model Name</th>
+                                  <th scope="col">Surface Finish</th> <!-- Added Surface Finish column -->
+                                  <th scope="col">Model Image</th>
+                                  <th scope="col">Status</th> <!-- Added Status column -->
+                                  <th scope="col">Action</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {% for model in models %}
+                                  <tr>
+                                      <th scope="row">{{ forloop.counter }}</th>
+                                      <td>{{ model.series.series_name }}</td>
+                                      <td>{{ model.model_name }}</td>
+                                      <td>{{ model.surfacefinish.surface_name }}</td> <!-- Display Surface Finish -->
+                                      <td>
+                                          {% if model.model_image %}
+                                              <img src="{{ model.model_image.url }}" alt="{{ model.model_name }}" width="100">
+                                          {% else %}
+                                              No Image
+                                          {% endif %}
+                                      </td>
+                                      <td>
+                                        {% if i.is_active %}
+                                          <a href="{% url 'Active_model' model.id %}" class="badge rounded-pill badge-danger">Deactive</a>
+                                        {% else %}
+                                            <a href="{% url 'Deactive_model' model.id %}" class="badge rounded-pill badge-success">Active</a>
+                                        {% endif %}
+                                      </td>
+                                      <td>
+                                          <a href="{% url 'updatemodel' model.id %}" class="btn btn-outline-light btn-xs txt-dark">
+                                              <i class="icofont icofont-edit"></i>
+                                          </a>
+                                          <button class="btn btn-outline-light btn-xs txt-dark" type="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ model.id }}">
+                                              <i class="icofont icofont-trash"></i>
+                                          </button>                        
+                                      </td>
+                                  </tr>
+                                  <!-- Confirmation Modal for Delete -->
+                                  <div class="modal fade" id="confirmDeleteModal{{ model.id }}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                                  <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                              </div>
+                                              <div class="modal-body">
+                                                  Are you sure you want to delete this item?
+                                              </div>
+                                              <div class="modal-footer">
+                                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                  <a href="{% url 'deletemodel' model.id %}" class="btn btn-danger">Yes</a>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              {% endfor %}
+                          </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>
+{% endblock %}

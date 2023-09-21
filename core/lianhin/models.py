@@ -14,13 +14,15 @@ class Brand(BaseContent):
 
 class Collection(BaseContent):
     brand = models.ForeignKey(to=Brand, on_delete=models.CASCADE)
-    collection_name = models.CharField(max_length=255, unique=True)
+    collection_name = models.CharField(max_length=255)
 
 class Series(BaseContent):
     collection = models.ForeignKey(to=Collection, on_delete=models.CASCADE)
-    series_name = models.CharField(max_length=255, unique=True)
+    series_name = models.CharField(max_length=255)
 
-class Models(BaseContent):
-    series_id = models.ForeignKey(to=Series, on_delete=models.CASCADE)
-    surfacefinish_id = models.OneToOneField(to=Surfacefinish, on_delete=models.CASCADE)
-    models_name = models.CharField(max_length=255, unique=True)
+class Model(BaseContent):
+    series = models.ForeignKey(to=Series, on_delete=models.CASCADE)
+    surfacefinish = models.OneToOneField(to=Surfacefinish, on_delete=models.CASCADE)
+    model_name = models.CharField(max_length=255)
+    model_image = models.FileField(upload_to='model',blank=True,null=True)
+

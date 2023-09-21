@@ -39,4 +39,11 @@ urlpatterns = [
     path('Deactive_series/<int:id>',views.Deactive_series,name='Deactive_series'),
     path('updateseries/<int:id>',views.updateseries,name='updateseries'),
     path('deleteseries/<int:id>',views.deleteseries,name='deleteseries'),
+
+    path('model',views.model,name='model'),
+    path('modelform',views.modelform,name='modelform'),
+    path('Active_model/<int:id>',views.Active_model,name='Active_model'),
+    path('Deactive_model/<int:id>',views.Deactive_model,name='Deactive_model'),
+    path('updatemodel/<int:id>',views.updatemodel,name='updatemodel'),
+    path('deletemodel/<int:id>',views.deletemodel,name='deletemodel'),
 ]

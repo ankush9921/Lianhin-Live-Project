@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid" style="padding-left: 120px; padding-top:20px">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header pb-0">
+                    <h3>Update Model</h3>
+                    <button class="btn btn-primary" style="margin-left: 1100px;" type="submit"><a href="{% url 'model' %}" style="color: white;">Back</a></button>
+                </div>
+                <div class="card-body">
+                    <div class="card-wrapper border rounded-3">
+                        <form class="row g-8" action="{% url 'updatemodel' model.id %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="col-12"> 
+                                <label for="series_name">Series Name</label>
+                                <select id="series_name" name="series_name" class="form-select">
+                                    <option value="" disabled>Select Series</option>
+                                    {% for series in series_data %}
+                                    <option value="{{ series.id }}" {% if model.series.id == series.id %}selected{% endif %}>
+                                        {{ series.series_name }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-12"> 
+                                <label for="surfacefinish_name">Surface Finish</label>
+                                <select id="surfacefinish_name" name="surfacefinish_name" class="form-select">
+                                    <option value="" disabled>Select Surface Finish</option>
+                                    {% for surfacefinish in surfacefinishes %}
+                                    <option value="{{ surfacefinish.id }}" {% if model.surfacefinish_id.id == surfacefinish.id %}selected{% endif %}>
+                                        {{ surfacefinish.surfacefinish_name }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-12" style="margin-top: 5px;">
+                                <div class="form-group">
+                                    <label for="model_name">Model Name:</label>
+                                    <input type="text" class="form-control" id="model_name" name="model_name" value="{{ model.model_name }}">
+                                </div>
+                            </div>
+                            <div class="col-12" style="margin-top: 5px;">
+                                <label for="model_image">Model Image:</label>
+                                <input type="file" class="form-control" id="model_image" name="model_image" accept="image/*">
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-primary" style="margin-top: 20px;" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

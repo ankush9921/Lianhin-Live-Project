@@ -72,6 +72,7 @@
                   <thead>
                     <tr>
                       <th scope="col">Sr.No</th>
+                      <th scope="col">Brand Name</th>
                       <th scope="col">Collection Name</th>
                       <th scope="col">Series Name</th>
                       <th scope="col">Is Active</th>
@@ -83,6 +84,7 @@
                         <tr>
                         <th scope="row">{{forloop.counter}}</th>
 
+                        <td>{{i.collection.brand.brand_name}}</td>
                         <td>{{i.collection.collection_name}}</td>
                         <td>{{i.series_name}}</td>
                         
