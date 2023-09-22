@@ -330,7 +330,6 @@ def modelform(request):
         except Surfacefinish.DoesNotExist:
             messages.error(request, 'Invalid Surfacefinish selected.')
     context = {'model': model, 'series_data': series_data, 'surfacefinishes': surfacefinishes}
-
     return render(request, context)
 
 
