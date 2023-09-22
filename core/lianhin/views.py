@@ -367,8 +367,8 @@ def updatemodel(request, id):
             surfacefinish_obj = Surfacefinish.objects.get(id=surfacefinish_id)
 
             model.model_name = model_name_f
-            model.series = series_obj  # Update the series
-            model.surfacefinish = surfacefinish_obj  # Update the surface finish
+            model.series = series_obj  
+            model.surfacefinish = surfacefinish_obj  
 
             if model_image_f:
                 model.model_image = model_image_f
