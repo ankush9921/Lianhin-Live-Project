@@ -15,13 +15,14 @@
                           <form class="row g-8" action="{% url 'updateseries' series.id %}" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
 
-                            <div class="col-12"> 
+                            
+                            <div class="col-12">
                               <label for="collection_name">Collection Name</label>
                               <select id="collection" name="collection" class="form-select">
                                   <option value="" disabled>Select Collection</option>
                                   {% for collection in collections %}
                                   <option value="{{ collection.id }}" {% if series.collection.id == collection.id %}selected{% endif %}>
-                                      {{ collection.collection_name }}
+                                      ({{ collection.brand.brand_name }}) - {{ collection.collection_name }}
                                   </option>
                                   {% endfor %}
                               </select>

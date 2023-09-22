@@ -221,12 +221,17 @@ def updatecollection(request, id):
 @login_required 
 def series(request):
     series = Series.objects.all()
+    brands = Brand.objects.all()
+
     collections = Collection.objects.all()
-    context = {'series': series, 'collections': collections}
+    context = {'series': series, 'collections': collections,'brands': brands}
     return render(request, 'series.html', context)
 
 def seriesform(request):
     collections = Collection.objects.all()
+    brands = Brand.objects.all()
+
+
     if request.method == 'POST':
         series_name_f = request.POST['series_name']
         collection_id = request.POST['collection_name']
@@ -243,7 +248,9 @@ def seriesform(request):
         except Collection.DoesNotExist:
             messages.error(request, 'Invalid Collection selected.')
 
-    return render(request, 'series.html', {'collections': collections})
+    context = {'series': series, 'collections': collections,'brands': brands}
+
+    return render(request, 'series.html', context)
 
 def Active_series(request,id):
     data=Series.objects.get(id=id)
@@ -265,6 +272,8 @@ def deleteseries(request,id):
 def updateseries(request, id):
     series = get_object_or_404(Series, id=id)
     collections = Collection.objects.all()
+    brands = Brand.objects.all()
+
 
     if request.method == 'POST':
         series_name_f = request.POST['series_name']
@@ -281,7 +290,7 @@ def updateseries(request, id):
         except Collection.DoesNotExist:
             pass
 
-    context = {'series': series, 'collections': collections}
+    context = {'series': series, 'collections': collections,'brands': brands}
     return render(request, 'updateseries.html', context)
 
 @login_required
@@ -358,10 +367,14 @@ def updatemodel(request, id):
             surfacefinish_obj = Surfacefinish.objects.get(id=surfacefinish_id)
 
             model.model_name = model_name_f
-            # model.series = series_obj
-            # model.surfacefinish = surfacefinish_obj
-            model.model_image = model_image_f
+            model.series = series_obj  # Update the series
+            model.surfacefinish = surfacefinish_obj  # Update the surface finish
+
+            if model_image_f:
+                model.model_image = model_image_f
+
             model.save()
+            
 
             return redirect('/model')
         except Series.DoesNotExist:

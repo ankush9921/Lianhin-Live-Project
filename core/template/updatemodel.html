@@ -15,27 +15,28 @@
                         <form class="row g-8" action="{% url 'updatemodel' model.id %}" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="col-12"> 
-                                <label for="series_name">Series Name</label>
-                                <select id="series_name" name="series_name" class="form-select">
-                                    <option value="" disabled>Select Series</option>
-                                    {% for series in series_data %}
-                                    <option value="{{ series.id }}" {% if model.series.id == series.id %}selected{% endif %}>
-                                        {{ series.series_name }}
-                                    </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-12"> 
-                                <label for="surface_name">Surface Finish</label>
+                                <label for="surface_name">Surface Finish:</label>
                                 <select id="surface_name" name="surface_name" class="form-select">
                                     <option value="" disabled>Select Surface Finish</option>
                                     {% for surfacefinish in surfacefinishes %}
-                                    <option value="{{ surfacefinish.id }}" {% if model.surfacefinish_id.id == surfacefinish.id %}selected{% endif %}>
+                                    <option value="{{ surfacefinish.id }}" {% if model.surfacefinish.id == surfacefinish.id %}selected{% endif %}>
                                         {{ surfacefinish.surface_name }}
                                     </option>
                                     {% endfor %}
                                 </select>
                             </div>
+                            <div class="col-12" style="margin-top: 5px;"> 
+                                <label for="series_name">Series Name</label>
+                                <select id="series_name" name="series_name" class="form-select">
+                                    <option value="" >Select Series</option>
+                                    {% for series in series_data %}
+                                    <option value="{{ series.id }}" {% if model.series.id == series.id %}selected{% endif %}>
+                                        {{ series.collection.brand.brand_name }} - {{ series.series_name }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
                             <div class="col-12" style="margin-top: 5px;">
                                 <div class="form-group">
                                     <label for="model_name">Model Name:</label>
@@ -50,7 +51,9 @@
                                 <button class="btn btn-primary" style="margin-top: 20px;" type="submit">Submit</button>
                             </div>
                             <div class="col-6">
-                                <img src="{{data.model_image.url}}" style="height: 100px; padding-left: 400px; padding-top: 20px;">
+                                {% if model.model_image %}
+                                <img src="{{model.model_image.url}}" style="height: 100px; padding-left: 400px; padding-top: 20px;">
+                                {% endif %}
                             </div>
                         </form>
                     </div>

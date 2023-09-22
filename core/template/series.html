@@ -29,16 +29,16 @@
                               <form class="row g-3" action="{% url 'seriesform' %}" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="col-md-12">
-                                  <div class="col-12">
-                                    <label for="collection_name">Collection Name</label>
-                                    <select name="collection_name" id="collection_name" class="form-select" >
-                                        <option value="" selected>Select a Collection</option>
-                                        {% for i in collections %}
-                                            <option value="{{ i.id }}">{{ i.collection_name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
                                   
+                                  <div class="col-12">
+                                      <label for="collection_name">Collection Name</label>
+                                      <select name="collection_name" id="collection_name" class="form-select">
+                                          <option value="" selected>Select a Collection</option>
+                                          {% for collection in collections %}
+                                              <option value="{{ collection.id }}">({{ collection.brand.brand_name }}) - {{ collection.collection_name }}</option>
+                                          {% endfor %}
+                                      </select>
+                                  </div>
                                 </div>
                                 <div class="col-md-12">
                                   <div class="col-12" style="margin-top: 5px;"> 

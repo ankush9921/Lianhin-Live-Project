@@ -30,19 +30,6 @@
                                             {% csrf_token %}
                                             <div class="col-md-12">
                                                 <div class="col-12">
-                                                    <label for="series_name">Series</label>
-                                                    <select name="series_name" id="series_name" class="form-select">
-                                                        <option value="" selected>Select a Series</option>
-                                                        {% for series in series_data %}
-                                                            <option value="{{ series.id }}">{{ series.series_name }}</option>
-                                                        {% endfor %}
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            
-                                            
-                                            <div class="col-md-12">
-                                                <div class="col-12">
                                                   <label for="surface_name">Surfacefinish</label>
                                                   <select name="surface_name" id="surface_name" class="form-select">
                                                       <option value="" selected>Select a Surfacefinish</option>
@@ -50,13 +37,18 @@
                                                           <option value="{{ surfacefinish.id }}">{{ surfacefinish.surface_name }}</option>
                                                       {% endfor %}
                                                   </select>
-                                                    <!-- <label for="surface_name">Surfacefinish</label>
-                                                    <select name="surface_name" id="surface_name" class="form-select">
-                                                        <option value="" selected>Select a Surfacefinish</option>
-                                                        {% for i in surfacefinishes %}
-                                                            <option value="{{ i.id }}">{{ i.surface_name }}</option>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-12">
+                                                <div class="col-12">
+                                                    <label for="series_name">Series</label>
+                                                    <select name="series_name" id="series_name" class="form-select">
+                                                        <option value="" selected>Select a Series</option>  
+                                                        {% for series in series_data %}
+                                                            <option value="{{ series.id }}">({{ series.collection.brand.brand_name }}) - {{ series.series_name }}</option>
                                                         {% endfor %}
-                                                    </select> -->
+                                                    </select>
                                                 </div>
                                             </div>
                                             
@@ -97,8 +89,8 @@
                           <thead>
                               <tr>
                                   <th scope="col">Sr.No</th>
-                                  <th scope="col">Series Name</th>
                                   <th scope="col">Surface Finish</th>
+                                  <th scope="col">Series Name</th>
                                   <th scope="col">Model Name</th>
                                   <th scope="col">Model Image</th>
                                   <th scope="col">Status</th> 
@@ -114,9 +106,7 @@
                                       <td>{{ model.model_name }}</td>
                                       <td>
                                           {% if model.model_image %}
-                                              <img src="{{ model.model_image.url }}" alt="{{ model.model_name }}" width="100">
-                                          {% else %}
-                                              No Image
+                                              <img src="{{ model.model_image.url }}" height="50px">
                                           {% endif %}
                                       </td>
                                       <td>
