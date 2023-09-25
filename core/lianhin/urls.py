@@ -46,4 +46,7 @@ urlpatterns = [
     path('Deactive_model/<int:id>',views.Deactive_model,name='Deactive_model'),
     path('updatemodel/<int:id>',views.updatemodel,name='updatemodel'),
     path('deletemodel/<int:id>',views.deletemodel,name='deletemodel'),
+
+    path('image_detail/<int:model_id>/', views.image_detail, name='image_detail'),
+
 ]

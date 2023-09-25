@@ -96,18 +96,32 @@
                                   <th scope="col">Action</th>
                               </tr>
                           </thead>
+                          
                           <tbody>
                               {% for model in model %}
                                   <tr>
                                       <th scope="row">{{ forloop.counter }}</th>
                                       <td>{{ model.surfacefinish.surface_name }}</td>
+                                        <!-- <td>
+                                            {% if model.surfacefinish.icon %}
+                                                <img src="{{ model.surfacefinish.icon.url }}" height="30px">
+                                            {% endif %}
+                                        </td> -->
                                       <td>{{ model.series.series_name }}</td>
                                       <td>{{ model.model_name }}</td>
-                                      <td>
-                                          {% if model.model_image %}
-                                              <img src="{{ model.model_image.url }}" height="50px">
-                                          {% endif %}
-                                      </td>
+                                        <!-- <td>
+                                            {% if model.model_image %}
+                                                <img src="{{ model.model_image.url }}" height="50px">
+                                            {% endif %}
+                                        </td> -->
+                                        <td>
+                                            {% if model.model_image %}
+                                                <a href="{{ model.model_image.url }}" target="_blank">
+                                                    <img src="{{ model.model_image.url }}" height="50px" alt="{{ model.model_name }}">
+                                                </a>
+                                            {% endif %}
+                                        </td>
+                                      
                                       <td>
                                         {% if model.is_active %}
                                           <a href="{% url 'Active_model' model.id %}" class="badge rounded-pill badge-danger">Deactive</a>
@@ -144,8 +158,30 @@
                                   </div>
                               {% endfor %}
                           </tbody>
+                            <!-- Add this at the bottom of your table -->
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="pagination">
+                                        <span class="step-links">
+                                            {% if model.has_previous %}
+                                                <a href="?page=1">&laquo; first</a>
+                                                <a href="?page={{ model.previous_page_number }}">previous</a>
+                                            {% endif %}
+                                            
+                                            <span class="current-page">{{ model.number }}</span>
+                                            
+                                            {% if model.has_next %}
+                                                <a href="?page={{ model.next_page_number }}">next</a>
+                                                <a href="?page={{ model.paginator.num_pages }}">last &raquo;</a>
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
 
                         </table>
+                        
                     </div>
                 </div>
             </div>

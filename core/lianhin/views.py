@@ -6,6 +6,7 @@ from lianhin.basecontent import BaseContent
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 
 
@@ -293,13 +294,30 @@ def updateseries(request, id):
     context = {'series': series, 'collections': collections,'brands': brands}
     return render(request, 'updateseries.html', context)
 
+# @login_required
+# def model(request):
+#     model = Model.objects.all()
+#     series_data = Series.objects.all()
+#     surfacefinishes = Surfacefinish.objects.all()  
+#     context = {'model': model, 'series_data': series_data, 'surfacefinishes': surfacefinishes}
+#     return render(request, 'model.html', context)
+
 @login_required
 def model(request):
-    model = Model.objects.all()
+    all_models = Model.objects.all()
+    items_per_page = 10  
+    paginator = Paginator(all_models, items_per_page)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
     series_data = Series.objects.all()
-    surfacefinishes = Surfacefinish.objects.all()  
-    context = {'model': model, 'series_data': series_data, 'surfacefinishes': surfacefinishes}
+    surfacefinishes = Surfacefinish.objects.all()
+    context = {
+        'model': page, 
+        'series_data': series_data,
+        'surfacefinishes': surfacefinishes,
+    }
     return render(request, 'model.html', context)
+
 
 
 def modelform(request):
@@ -384,3 +402,6 @@ def updatemodel(request, id):
     context = {'model': model, 'series_data': series_data, 'surfacefinishes': surfacefinishes}
     return render(request, 'updatemodel.html', context)
     
+def image_detail(request, model_id):
+    model = get_object_or_404(Model, id=model_id)    
+    return render(request, 'image_detail.html', {'model': model})

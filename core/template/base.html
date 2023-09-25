@@ -38,6 +38,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/vector-map.css' %}">
     <!-- Plugins css Ends-->
     <!-- Bootstrap css-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/bootstrap.css' %}">
     <!-- App css-->
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
@@ -85,7 +87,7 @@
         <!-- Page Sidebar Start-->
         <div class="sidebar-wrapper" data-layout="stroke-svg" >
           <div >
-            <div class="logo-wrapper" ><a href="#"><img class="img-fluid"  src="{% static 'assets/images/home2.png' %}" alt=""></a>
+            <div class="logo-wrapper" ><a href="{% url 'index' %}"><img class="img-fluid"  src="{% static 'assets/images/home2.png' %}" alt=""></a>
               <div class="back-btn"><i class="fa fa-angle-left">   </i></div>
             </div>
             <nav class="sidebar-main">
@@ -102,7 +104,7 @@
 
 
                   
-                  <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#">
                       <svg class="stroke-icon">
                         <use href="static/assets/svg/icon-sprite.svg"></use>
                       </svg>
@@ -112,7 +114,7 @@
                       <span>General</span></a>
                     <ul class="sidebar-submenu custom-scrollbar">
                       <li class="sidebar-head">General</li>
-                      <li class="main-submenu"><a class="d-flex sidebar-menu" href="javascript:void(0)">
+                      <li class="main-submenu"><a class="d-flex sidebar-menu" href="#">
                           <svg class="stroke-icon">
                             <use href="{% static 'assets/svg/icon-sprite.svg' %}"></use>
                           </svg>
@@ -127,7 +129,7 @@
                           <li><a href="#">CRM Dashboard</a></li>
                         </ul>
                       </li>
-                      <li class="main-submenu"><a class="d-flex sidebar-menu" href="javascript:void(0)">
+                      <li class="main-submenu"><a class="d-flex sidebar-menu" href="#">
                           <svg class="stroke-icon">
                             <use href="{% static 'assets/svg/icon-sprite.svg#stroke-widget' %}"></use>
                           </svg>
@@ -138,11 +140,11 @@
                             <use href="{% static 'assets/svg/icon-sprite.svg#Arrow-right' %}"></use>
                           </svg></a>
                         <ul class="submenu-wrapper">
-                          <li><a href="./general-widget.html">General</a></li>
-                          <li><a href="./chart-widget.html">Chart</a></li>
+                          <li><a href="#">General</a></li>
+                          <li><a href="#">Chart</a></li>
                         </ul>
                       </li>
-                      <li class="main-submenu"><a class="d-flex sidebar-menu" href="javascript:void(0)">
+                      <li class="main-submenu"><a class="d-flex sidebar-menu" href="#">
                           <svg class="stroke-icon">
                             <use href="{% static 'assets/svg/icon-sprite.svg#stroke-layout' %}"></use>
                           </svg>
@@ -153,13 +155,13 @@
                             <use href="{% static 'assets/svg/icon-sprite.svg#Arrow-right' %}"></use>
                           </svg></a>
                         <ul class="submenu-wrapper">
-                          <li><a href="box-layout.html">Boxed</a></li>
-                          <li><a href="layout-rtl.html">RTL</a></li>
-                          <li><a href="layout-dark.html">Dark Layout</a></li>
-                          <li><a href="hide-on-scroll.html">Hide Nav Scroll</a></li>
-                          <li><a href="footer-light.html">Footer Light</a></li>
-                          <li><a href="footer-dark.html">Footer Dark </a></li>
-                          <li><a href="footer-fixed.html">Footer Fixed </a></li>
+                          <li><a href="#">Boxed</a></li>
+                          <li><a href="#">RTL</a></li>
+                          <li><a href="#">Dark Layout</a></li>
+                          <li><a href="#">Hide Nav Scroll</a></li>
+                          <li><a href="#">Footer Light</a></li>
+                          <li><a href="#">Footer Dark </a></li>
+                          <li><a href="#">Footer Fixed </a></li>
                         </ul>
                       </li>
                     </ul>

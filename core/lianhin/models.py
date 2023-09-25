@@ -22,7 +22,7 @@ class Series(BaseContent):
 
 class Model(BaseContent):
     series = models.ForeignKey(to=Series, on_delete=models.CASCADE)
-    surfacefinish = models.OneToOneField(to=Surfacefinish, on_delete=models.CASCADE)
+    surfacefinish = models.ForeignKey(to=Surfacefinish, on_delete=models.CASCADE)
     model_name = models.CharField(max_length=255)
     model_image = models.FileField(upload_to='model',blank=True,null=True)
 

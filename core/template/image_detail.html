@@ -1,0 +1,17 @@
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const modalImage = document.getElementById("modalImage");
+            const imageModal = new bootstrap.Modal(document.getElementById("imageModal"));
+    
+            document.querySelectorAll(".open-image-modal").forEach((link) => {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const imageUrl = this.getAttribute("data-image-url");
+                    modalImage.src = imageUrl;
+                    imageModal.show();
+                });
+            });
+        });
+    </script>
